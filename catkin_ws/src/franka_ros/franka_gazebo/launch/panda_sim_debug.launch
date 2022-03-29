@@ -1,0 +1,37 @@
+<?xml version="1.0"?>
+<launch>
+  <arg name="arm_id" default="panda" doc="Name of the panda robot to spawn" />
+  <arg name="record" default="false"/>
+  <!-- <include file="$(find franka_gazebo)/launch/panda_test.launch">
+    <arg name="rviz" value="true"/>
+    <arg name="use_gripper" value="false"/>
+    <arg name="x" value="-0.5"/>
+    <arg name="controller" value="complete_cartesian_impedance_example_controller" />
+  </include> -->
+
+  <node name="track_task"
+        pkg="franka_example_controllers"
+        type="track_task.py">
+    <param name="link_name" value="$(arg arm_id)_link0" />
+    <remap to="complete_cartesian_impedance_example_controller/equilibrium_pose" from="equilibrium_pose" />
+  </node>
+
+  <node name="mpc_control" pkg="franka_example_controllers" type="mpc_impedance_controller" output = "screen"
+  >
+  <remap to="complete_cartesian_impedance_example_controller/error_state" from="error_state" />
+  <remap to="complete_cartesian_impedance_example_controller/mpc_command" from="mpc_command" />
+  <remap to="complete_cartesian_impedance_example_controller/equilibrium_pose" from="equilibrium_pose" />
+  </node>
+
+  <node name="bag_record"
+        pkg="rosbag" 
+        type="record"
+        args="-o /home/fr/caoRan/frankaMPC/catkin_ws/data/test.bag 
+        /complete_cartesian_impedance_example_controller/equilibrium_pose 
+        /franka_state_controller/franka_states 
+        /complete_cartesian_impedance_example_controller/error_state
+        /complete_cartesian_impedance_example_controller/mpc_command"
+        if="$(arg record)">
+  </node>
+
+</launch>

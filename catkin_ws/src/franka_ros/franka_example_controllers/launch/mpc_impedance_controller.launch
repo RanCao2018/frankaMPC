@@ -1,0 +1,11 @@
+<?xml version="1.0" ?>
+<launch>
+  <arg name="arm_id" default="panda" doc="Name of the panda robot to spawn" />
+  <arg name="record" default="false"/>
+
+  <node name="mpc_control" pkg="franka_example_controllers" type="mpc_impedance_controller" output = "screen"
+  >
+  <remap to="complete_cartesian_impedance_example_controller/error_state" from="error_state" />
+  <remap to="complete_cartesian_impedance_example_controller/mpc_command" from="mpc_command" />
+  </node>
+</launch>
