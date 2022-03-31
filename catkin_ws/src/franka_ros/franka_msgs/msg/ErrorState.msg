@@ -6,3 +6,4 @@ float64[3] velocity
 float64[3] accelerate
 float64[96] predict_reference
 float64[3] wrench_external
+float64[48] predict_stiffness

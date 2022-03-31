@@ -102,11 +102,11 @@ void MpcImpedanceController::start() {
     //solver_.settings()->setVerbosity(false);
     //solver_.settings()->setWarmStart(true);
     solver_.settings()->setPolish(true);
-    //solver_.settings()->setScaling(0);
-    //solver_.settings()->setScaledTerimination(false);
-    // solver_.settings()->setAbsoluteTolerance(5e-5);
-    // solver_.settings()->setRelativeTolerance(5e-5);
-    solver_.settings()->setPrimalInfeasibilityTollerance(1e-5);
+    solver_.settings()->setScaling(0);
+    solver_.settings()->setScaledTerimination(false);
+    //solver_.settings()->setAbsoluteTolerance(5e-5);
+    //solver_.settings()->setRelativeTolerance(5e-5);
+    solver_.settings()->setPrimalInfeasibilityTollerance(1e-6);
 
     // set the initial data of the QP solver
     solver_.data()->setNumberOfVariables(generalized_state_size_ * (horizon_ + 1) + control_size_ * horizon_);

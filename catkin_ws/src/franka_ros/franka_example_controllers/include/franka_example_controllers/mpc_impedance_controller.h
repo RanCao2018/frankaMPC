@@ -50,7 +50,7 @@ class MpcImpedanceController{
   std::vector<hardware_interface::JointHandle> joint_handles_;
   
   // predict time interval
-  const int horizon_{15};
+  const int horizon_{10};
   const double update_rate_{100.0};
   // sample_time
   double sample_time_;
